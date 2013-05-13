@@ -1,68 +1,250 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Gilliam by gilliam</title>
+        <meta charset="utf-8">
+    <title>Gilliam - A micro services platform</title>
+
+    <link rel="canonical" href="http://gilliam.github.io/index.html" />
+
+    <!-- YUI CSS reset -->
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.4.1/build/cssreset/cssreset-min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 1140px Grid styles for IE -->
+    <!--[if lte IE 9]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" /><![endif]-->
+
+    <!-- The 1140px Grid - http://cssgrid.net/ -->
+    <link rel="stylesheet" href="css/1140.css" type="text/css" media="screen" />
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/syntax.css" />
+
+    <!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers-->
+    <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tableofcontents.min.js"></script>
+
   </head>
 
-  <body>
-    <div id="container">
-      <div class="inner">
+  <body id="top">
+    <div class="container">
+          <div id="header" class="row">
+      <nav id="site-nav" class="twelvecol">
+      <a id="home" href="index.html"><span>Gilliam</span></a>
+      <a href="concepts.html"><span>Concepts</span></a>
+      <a href="http://github.com/aphyr/riemann"><span>Github</span></a>
+      </nav>
+    </div>
 
-        <header>
-          <h1>Gilliam</h1>
-          <h2>your 12 factor app system</h2>
-        </header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/gilliam" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+      <style>
+  body {
+    background: #b70034; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #b70034 0%, #5e0406 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#b70034), color-stop(100%,#5e0406)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  #b70034 0%,#5e0406 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  #b70034 0%,#5e0406 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  #b70034 0%,#5e0406 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  #b70034 0%,#5e0406 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b70034', endColorstr='#5e0406',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  }
+</style>
 
-        <hr>
+<div class="row">
+  <h1 class="twelvecol last"><span class="focus">Gilliam</span> - A micro services platform.</h1>
+</div>
 
-        <section id="main_content">
-          <h3>Welcome to GitHub Pages.</h3>
+  <div class="row">
+    <div class="sixcol">
+      <h2>The Pitch</h2>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+      <p>For developers of scalable and reliable systems, Gilliam is a
+	platform that allows you to easily develop, deploy and scale
+	your backend of micro services.  Unlike many commercial
+	Platform as a Services, Gilliam targets more than web apps and
+	is easy to integate and adapt.</p>
+    </div>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+    <div class="sixcol last">
+      <h2>The How</h2>
+      <p>Gilliam is made up out of a small components;
+	<a href="https://github.com/gilliam/builder">the build server</a> bundles your service with its
+	dependencies and language runtime into a deployable image,
+	the <a href="https://github.com/gilliam/scheduler">scheduler</a> makes sure that there is always
+	the specified number of service instances running on a set
+	of <a href="https://github.com/gilliam/hypervisor">hypervisors</a> and the <a href="">client</a>
+	allows the developer to manage the whole life cycle of his or
+	her service.
+    </div>
+  </div>
+      
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
-<h3>Designer Templates</h3>
+<!-- <div class="row"> -->
+<!--   <div class="eightcol"> -->
+<!--     <div class="video-container"> -->
+<!--       <iframe src="http://player.vimeo.com/video/38377415" -->
+<!--         frameborder="0" webkitallowfullscreen mozallowfullscreen -->
+<!--         allowfullscreen></iframe> -->
+<!--     </div> -->
+<!--   </div> -->
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<!--   <div class="fourcol last"> -->
+<!--     <p>Riemann aggregates events from your servers and applications with a -->
+<!--     powerful stream processing language. Send an email for every exception -->
+<!--     raised by your code. Track the latency distribution of your web app. -->
+<!--     See the top processes on any host, by memory and CPU. Combine -->
+<!--     statistics from every Riak node in your cluster and forward to -->
+<!--     Graphite. Send alerts when a key process fails to check in. Know how -->
+<!--     many users signed up right this second.</p> -->
 
-<h3>Rather Drive Stick?</h3>
+<!--     <p class="callout">Riemann provides <i class="focus">low-latency, -->
+<!--       transient shared state</i> for systems with many moving parts.</p> -->
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<!--     <h2>Download Riemann 0.2.1</h2> -->
+<!--     <a href="http://aphyr.com/riemann/riemann_0.2.1_all.deb" style="margin-right: 6%;"><img src="images/deb.png" alt="Debian Package" style="width: 26.17%; display: inline-block;" /></a> -->
+<!--     <a href="http://aphyr.com/riemann/riemann-0.2.1-1.noarch.rpm" style="margin-right: 6%;"><img src="images/rpm.png" alt="RPM Package" style="width: 29.75%; display: inline-block;" /></a> -->
+<!--     <a href="http://aphyr.com/riemann/riemann-0.2.1.tar.bz2"><img src="images/tar.png" alt="Gzipped Tarball" style="width: 27.54%; display: inline-block;" /></a> -->
+<!--   </div> -->
+<!-- </div> -->
 
-<h3>Authors and Contributors</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
 
-<h3>Support or Contact</h3>
+</div> <!-- End of top container -->
+<div class="light">
+  
+<div class="container">
+  <div class="row">
+    <div class="sixcol">
+      <h2>Micro Service Architectures</h2>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
+      <p>In the words of <a href="http://yobriefca.se/blog/2013/04/29/micro-service-architecture/">James Hughes</a>:
 
-        <footer>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+      <i>Micro Service Architecture is an architectural concept that
+      aims to decouple a solution by decomposing functionality into
+      discrete services. Think of it as applying many of the
+      principles
+      of <a href="http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID</a>
+      at an architectural level, instead of classes you've got
+      services.</i>
 
-        
+      <p>Gilliam's goal is to make it easier to develop, deploy and
+      scale these systems.  It does that by minimizing differences
+      between development and production environments, building of
+      dependencies with the service at build time, lighweight
+      virtualization and service isolation
+      using <a href="http://lxc.sf.net">LXC</a>.</p>
+    </div>
+    
+    <div class="sixcol last">
+      <h2>Built for 12 factor apps</h2>
+      <p>The <a href="http://www.12factor.net">twelve-factor
+	methodology</a> is a methodology for building small services
+	that lend themselves to horizontal scaling.  Gilliam comes
+	with a build server that takes a 12 factor app and bundles it
+	with alls its dependencies into an <i>image</i> that can later
+	be deployed.</p>
+
+      <p>Process types are defined in a <code>Procfile</code> living
+	in the root of your code tree:</p>
+
+<div class="highlight">
+  <pre><code class="clj"><span class="nf">web</span>: python web.py
+<span class="nf">worker</span>: python worker.py</code></pre></div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="sixcol">
+      <h2>Simple command-line client</h2>
+      <p>Gilliam is controlled from a command-line tool simply called
+	<code>gilliam</code>. Its with this tool that you deploy
+	new releases of your service:
+<div class="highlight"><pre><code>$ gilliam deploy
+v12 released
+</code></pre></div>
+	And scale a release up or down
+	<div class="highlight"><pre><code>$ gilliam scale v12 web=10</code></pre></div>
+      </p>
+    </div>
+
+    <div class="sixcol last">
+      <h2>Easy to integrate</h2>
+
+      <p>Most likely you already have a backend with existing
+	infrastructure and systems.  Gilliam is designed to be easy to
+	integate and extend in these scenarios.  Most <i>magic</i>
+	happens in shell scripts, allowing customization and
+	adaptation to fit your current situation.</p>
+
+      <p>For example, the integration
+	with <a href="http://lxc.sf.net">LXC</a> is completely done in
+	three simple
+	scripts; <a href="https://github.com/gilliam/hypervisor/blob/master/scripts/provision">provision</a>,
+	<a href="https://github.com/gilliam/hypervisor/blob/master/scripts/start">start</a> and
+	<a href="https://github.com/gilliam/hypervisor/blob/master/scripts/cleanup">cleanup</a>.
+	This decoupling makes it possible to with ease switch
+	virtualizaiton techniques.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="sixcol">
+      <h2>Promotes best practices!</h2>
+
+      <p>By having the services run in isolated, resource constrained
+	and read-only environments Gilliam promotes small stateless
+	services that lend themselves to horizontal scaling.</p>
+
+      <p>Each service instance will get a limited amount of CPU and
+	memory.  If more resources are needed to meet the demand you
+	need to scale up the number of service instances.</p>
+    </div>
+
+    <div class="sixcol last">
+      <h2>Simple and decoupled</h2>
+      <p>Gilliam is composed of a small set of losely coupled
+      components.  Most components expose a simple RESTful API over
+      HTTP that serves up JSON.</p>
+
+      <p>The core components are written in Python,
+      using <a href="http://www.gevent.org/">gevent</a>,
+      <a href="http://routes.readthedocs.org/en/latest/">Routes</a>
+      and <a href="http://webob.org/">WebOb</a>.</p>
+    </div>
+  </div>
+
+</div>
+
+    </div>
+    <div id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="twelvecol">
+            <p>Gilliam is written
+              by <a href="http://github.com/jrydberg">Johan
+              Rydberg</a>.  You can email me
+              at <a href="mailto:johan.rydberg@gmail.com">johan.rydberg@gmail.com</a>,
+              or <a href="http://twitter.com/__jrydberg__">follow me
+              on twitter</a> for updates.  Thanks
+              to <a href="http://twitter.com/aphyr">aphyr</a> for
+              website theme.</p>
+          </div>
+        </div>
       </div>
     </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40898335-1', 'github.io');
+  ga('send', 'pageview');
+
+</script>
+
   </body>
 </html>
