@@ -110,7 +110,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#092eb7', end
     <div class="sixcol">
       <h2>Processes</h2>
       <p>Borrowing from Heroku, the <code>Procfile</code> defines what
-      you want to run on the platform. The file contains <i>process
+      you want to run in your service. The file contains <i>process
       types</i>, which is declarations of commands that will execute when
       a process of that type is started. The procfile is a YAML file that
       lives in the root of your service:</p>
@@ -161,7 +161,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#092eb7', end
 	dependencies into an immutable <i>image</i>.  This image can
 	later be deployed to hypervisors and will act as the
 	environment for the processes. The same image will be used
-	for all stages, from testing to staging and production.</p>
+	for all stages, from testing to production.</p>
 
       <img style="margin-left: 60px;" src="images/image-repository.png"></img>
 
@@ -190,7 +190,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#092eb7', end
       <h2>Configuration</h2>
       <p>To minimize differences between testing and production
 	environments the same software image is used for all stages.
-	But normally some configuration data is needed.</p>
+	But the service will most likely need some configuration data
+	that will not always be the same, like database credentials or
+	points to external resources.</p>
 
       <p>Configuration is controlled using the <code>gilliam</code>
 	command-line client:</p>
