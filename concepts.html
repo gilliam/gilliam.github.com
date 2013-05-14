@@ -50,8 +50,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#092eb7', end
 </style>
 
 <div class="row">
-  <h1 class="twelvecol last"><span class="focus">Gilliam</span> makes sure your processes are running.</h1>
+  <h1 class="twelvecol last"><span class="focus">Gilliam</span> make sure your processes are running.</h1>
 </div>
+
+  <div class="row">
+    <div class="sixcol">
+      <img src="images/concept-overview.png"></img>
+    </div>
+
+    <div class="sixcol last">
+      <p>The model is quite simple and flexible: Process types are
+      declared, code is built into an image and combined with
+      configuration to form a release.  From this release processes
+      are created and Gilliam will make sure that they keep
+      running.</p>
+    </div>
+  </div>
 
 </div> <!-- End of top container -->
 <div class="light">
@@ -59,40 +73,169 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#092eb7', end
 <div class="container">
   <div class="row">
     <div class="sixcol">
+      <h2>Services (AKA "apps")</h2>
+      <p>Services (internally called "apps", of course) is the thing
+      that you as a developer build and deploy.  Normally it exposes
+      some kind of interface or API that other parties or clients can
+      use to communicate with the service. In turn, it may talk to
+      other services and attached resources such as database or
+      queues.</p>
+
+      <p>In micro service architectures a service is really small and
+	perform a single task.</p>
+    </div>
+    
+    <div class="sixcol last">
+      <h2>Builder</h2>
+      <p>The builder is responsible for taking code and bundling it
+	with its dependencies and run-time into an <i>image</i>.</p>
+
+      <p>When the <code>gilliam deploy</code> command is issued the
+	complete source tree of the service will be tar:ed up and sent
+	to the builder, which will feed it into a buildpack. Its up to
+	the buildpack to gather dependencies and prepare the image.
+	When done, the whole thing is assembled into an image and a
+	new release is created for the service.</p>
+
+      <p>Gilliams architecture do not require a special build server,
+	but the builder is a convenient way of creating images and
+	releasing them.  One can envision other ways of getting code
+	into a release; <code>git push</code> or maybe a Jenkins
+	job.</p>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="sixcol">
       <h2>Processes</h2>
+      <p>Borrowing from Heroku, the <code>Procfile</code> defines what
+      you want to run on the platform. The file contains <i>process
+      types</i>, which is declarations of commands that will execute when
+      a process of that type is started. The procfile is a YAML file that
+      lives in the root of your service:</p>
+
+<div class="highlight">
+  <pre><code class="clj"><span class="nf">web</span>: python web.py
+<span class="nf">worker</span>: python worker.py</code></pre></div>
+
+     <p>Processes run in resource constrained, isolated, ephemeral
+       environments provided by the hypervisor. If processes need to
+       share state it should be done outside of the container, like in
+       a database or a cache.</p>
+
+     <p>For local development a number of tools exist to launch
+       processes from a procfile. The most known one is probably
+       <a href="http://blog.daviddollar.org/2011/05/06/introducing-foreman.html">Foreman</a>.
+       </p>
     </div>
     
     <div class="sixcol last">
       <h2>Scheduler</h2>
+      <p>The scheduler is the heart of Gilliam. It is the component that
+	is make sure that the desired number of processes are running
+	for your services. It constantly talks to the hypervisors and
+	monitor their state.</p>
+
+      <img style="margin-left: 80px;" src="images/scheduler.png"></img>
+
+      <p>Processes are currently spread in a random fashion over all
+	hypervisors.</p>
+
+      <p>The scheduler provides a simple RESTful API to manage
+	services, releases and processes. This is the API that the
+	client uses when you issue <code>config</code>
+	or <code>scale</code> commands.</p>
+
+      <p>Simple in its design, the scheduler is completely agnostic to
+	image formats and virtualization techniques.  The image format
+	is defined by a contract between the build processes and the
+	hypervisor.</p>
     </div>
   </div>
 
   <div class="row">
     <div class="sixcol">
       <h2>Images</h2>
+      <p>A service is processed and bundled with its run-time and
+	dependencies into an immutable <i>image</i>.  This image can
+	later be deployed to hypervisors and will act as the
+	environment for the processes. The same image will be used
+	for all stages, from testing to staging and production.</p>
+
+      <img style="margin-left: 60px;" src="images/image-repository.png"></img>
+
+      <p>Images are stored in some kind of repository. It can be
+	Amazon S3 or something else that can serve content using HTTP.
+	Currently the builder provides repository functionality.  The
+	image will be downloaded to the hypervisor when a process is
+	created.  To speed up consecutive launches, images are
+	cached.</p>
     </div>
     
     <div class="sixcol last">
       <h2>Hypervisor</h2>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="sixcol">
-      <h2>Releases</h2>
-    </div>
-    
-    <div class="sixcol last">
-      <h2>Auxiliary Services</h2>
+      <p>This is the component that puts your image into some kind of
+	container, in our case <a href="http://lxc.sf.net/">LXC</a>,
+	and start a process in it.</p>
+      <p>It is the hypervisors job to monitor spawned processes and
+	report state back to the scheduler.  It is also responsible
+	for providing the functionality of the platform that resides
+	outside of the container, like logging.</p>
     </div>
   </div>
 
   <div class="row">
     <div class="sixcol">
       <h2>Configuration</h2>
+      <p>To minimize differences between testing and production
+	environments the same software image is used for all stages.
+	But normally some configuration data is needed.</p>
+
+      <p>Configuration is controlled using the <code>gilliam</code>
+	command-line client:</p>
+
+<div class="highlight"><pre><code>$ gilliam config <span class="nf">POOL_SIZE=32</span>
+v13 released
+</code></pre></div>
+
+      <p>Following the 12 factor methodology, configuration is passed
+	to the process in environment variables.</p>
     </div>
     
     <div class="sixcol last">
+      <h2>Auxiliary Services</h2>
+      <p>Currently Gilliam do not have any specific functionality for
+	supporting auxiliary services like databases, queues or
+	caches.  This is something that is planned for the future, but
+	lets get the basics in place first.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="sixcol">
+      <h2>Releases</h2>
+      <p>A release is the combination of code and configuration, and it is
+	the thing that is actually deployed. A new release is created every
+	time new code is pushed or when configuration is changed.</p>
+
+      <img style="margin-left: 150px;" src="images/release.png"></img>
+
+      <p>By being the deployable unit, it is on a release that you set
+	scale factors. This means that it is possible to have multiple
+	releases deployed at the same time, allowing partial and
+	gradiual roll out of changes.</p>
+
+    </div>
+    
+    <div class="sixcol last">
+      <h2>Scale Factors</h2>
+      <p>Scale factors are set on a release and will instruct the
+	scheduler to try to make sure that the specified number of
+	processes for each type is always running.</p>
+
+      <img style="margin-left: 100px;" src="images/process-types.png"></img>
+
     </div>
   </div>
 
