@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="utf-8">
+    <title>Gilliam - A micro services platform</title>
+
+    <link rel="canonical" href="http://gilliam.github.io/index.html" />
+
+    <!-- YUI CSS reset -->
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.4.1/build/cssreset/cssreset-min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 1140px Grid styles for IE -->
+    <!--[if lte IE 9]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" /><![endif]-->
+
+    <!-- The 1140px Grid - http://cssgrid.net/ -->
+    <link rel="stylesheet" href="css/1140.css" type="text/css" media="screen" />
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/syntax.css" />
+
+    <!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers-->
+    <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tableofcontents.min.js"></script>
+
+  </head>
+
+  <body id="top">
+    <div class="container">
+          <div id="header" class="row">
+      <nav id="site-nav" class="twelvecol">
+      <a id="home" href="index.html"><span>Gilliam</span></a>
+      <a href="concepts.html"><span>Concepts</span></a>
+      <a href="install.html"><span>Install</span></a>
+      <a href="http://github.com/gilliam"><span>Github</span></a>
+      </nav>
+    </div>
+
+
+      <style>
+  body {
+background: #84c5ff; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  #84c5ff 0%, #009cd1 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#84c5ff), color-stop(100%,#009cd1)); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  #84c5ff 0%,#009cd1 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  #84c5ff 0%,#009cd1 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  #84c5ff 0%,#009cd1 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  #84c5ff 0%,#009cd1 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84c5ff', endColorstr='#009cd1',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  }
+</style>
+
+</div> <!-- End of top container -->
+<div class="light">
+  
+<div class="container">
+  <div class="row">
+    <div class="eightcol">
+      <h2>Gettings Started using Vagrant</h2>
+
+      <p>The easiest way to try out Gilliam is to run it in Vagrant.
+	Follow the steps outlines below and you will end up with a
+	running Gilliam installation.</p>
+
+      <h3>STEP 1: Install Vagrant</h3>
+      <p>Go to <a href="http://www.vagrantup.com">http://www.vagrantup.com</a> and
+	install the latest release.</p>
+
+      <h3>STEP 2: Clone the Gilliam Vagrant Repository</h3>
+<div class="highlight">
+<pre><code>$ git clone https://github.com/gilliam/vagrant.git</code></pre>
+</div>
+     
+      <h3>STEP 3: Launch Vagrant</h3>
+      <p>This will bootstrap your Gilliam installation. When done (it may
+	take a while), everything is up and running.</p>
+<div class="highlight"><pre><code>vagrant up</code></pre></div>
+
+      <h3>STEP 4: Create your first formation</h3>
+      <p>SSH into the virtual machine and issue the following commands:</p>
+<div class="highlight">
+<pre><code>$ git clone https://github.com/gilliam/example-app.git
+$ cd example-app
+$ gilliam-cli create example
+</code></pre>
+</div>
+
+      <h3>STEP 5: Deploy</h3>
+      <p>In this step the example app will be built, released and scaled.</p>
+<div class="highlight">
+<pre><code>$ gilliam-cli deploy
+...
+released 1
+$ gilliam-cli scale 1 www=1
+</code></pre>
+</div>
+
+      <h3>STEP 5: Route Traffic to Service</h3>
+      <p>Here we tell the router to send traffic to the newly scaled service.</p>
+<div class="highlight">
+<pre><code>$ gilliam-cli route :/{rest:.*?} www.example.service/{rest}</code></pre>
+</div>
+
+      <h3>STEP 6: Profit</h3>
+      <p>Direct your browser
+      to <code>http://192.168.33.10:8080/</code> and you should see
+      some text that indicated that things are working.</p>
+    </div>
+
+    <div class="fourcol last">
+      <h2>Run from source?</h2>
+
+      <p>Yay! You want to help out with the development of Gilliam!
+      Splendid!</p>
+
+      <p>Head over to <a href="https://github.com/gilliam/">the
+	  Gilliam organization</a> at github.
+	</p>
+    </div>
+
+  </div>
+</div>
+
+    </div>
+    <div id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="twelvecol">
+            <p>Gilliam is written
+              by <a href="http://github.com/jrydberg">Johan
+              Rydberg</a>.  You can email me
+              at <a href="mailto:johan.rydberg@gmail.com">johan.rydberg@gmail.com</a>,
+              or <a href="http://twitter.com/__jrydberg__">follow me
+              on twitter</a> for updates.  Thanks
+              to <a href="http://twitter.com/aphyr">aphyr</a> for
+              website theme.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40898335-1', 'github.io');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

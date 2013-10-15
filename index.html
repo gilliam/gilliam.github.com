@@ -32,6 +32,7 @@
       <nav id="site-nav" class="twelvecol">
       <a id="home" href="index.html"><span>Gilliam</span></a>
       <a href="concepts.html"><span>Concepts</span></a>
+      <a href="install.html"><span>Install</span></a>
       <a href="http://github.com/gilliam"><span>Github</span></a>
       </nav>
     </div>
@@ -51,30 +52,26 @@
 </style>
 
 <div class="row">
-  <h1 class="twelvecol last"><span class="focus">Gilliam</span> - A micro services platform.</h1>
+  <h1 class="twelvecol last"><span class="focus">Gilliam</span> - A platform for micro services.</h1>
 </div>
 
   <div class="row">
     <div class="sixcol">
       <h2>The Pitch</h2>
 
-      <p>For developers of scalable and reliable systems, Gilliam is a
-	platform that allows you to easily develop, deploy and scale
-	your backend of micro services.  Unlike many commercial
-	Platform as a Services, Gilliam targets more than web apps and
-	is easy to integate and adapt.</p>
+      <p>Gilliam is a open source Platform as a Service (PaaS) that
+	allows you easily develop, deploy and scale your application
+	backend. Unlike commercial and many other open source PaaS
+	systems, Gilliams is intended for Micro Service Architectures.
+	.</p>
     </div>
 
     <div class="sixcol last">
       <h2>The How</h2>
-      <p>Gilliam is made up out of a small components;
-	<a href="https://github.com/gilliam/builder">the build server</a> bundles your service with its
-	dependencies and language runtime into a deployable image,
-	the <a href="https://github.com/gilliam/scheduler">scheduler</a> makes sure that there is always
-	the specified number of service instances running on a set
-	of <a href="https://github.com/gilliam/hypervisor">hypervisors</a> and the <a href="">client</a>
-	allows the developer to manage the whole life cycle of his or
-	her service.</p>
+      <p>Gilliam stands on the sholders
+	of <a href="http://docker.io">Docker</a>.  Every piece of code
+	running on Gilliam is a Docker image.  To that Gilliam adds
+	service discovery, a router, scheduling and elastic scaling.</p>
 
       <p>Read more in the <a href="concepts.html">concepts</a> section.</p>
     </div>
@@ -103,24 +100,31 @@
       between development and production environments, bundling of
       dependencies with the service at build time, lightweight
       virtualization and service isolation
-      using <a href="http://lxc.sf.net">LXC</a>.</p>
+      using <a href="http://docker.io">Docker</a>.</p>
     </div>
     
     <div class="sixcol last">
       <h2>Built for 12 factor apps</h2>
       <p>The <a href="http://www.12factor.net">twelve-factor
 	methodology</a> is a methodology for building small services
-	that lend themselves to horizontal scaling.  Gilliam comes
-	with a build server that takes a 12 factor app and bundles it
+	that lend themselves to horizontal scaling.  Gilliam uses
+	Heroku buildpacks that takes a 12 factor app and bundles it
 	with all its dependencies into an <i>image</i> that can later
 	be deployed.</p>
 
-      <p>Process types are defined in a <code>Procfile</code> living
-	in the root of your code tree:</p>
+      <p>Services are defined in a <code>gilliam.yml</code> file
+	living in the root of your code tree:</p>
 
 <div class="highlight">
-  <pre><code class="clj"><span class="nf">web</span>: python web.py
-<span class="nf">worker</span>: python worker.py</code></pre></div>
+  <pre><code class="clj"><span class="nf">api</span>:
+  script: bin/api
+  ports:
+    - 80
+<span class="nf">_worker</span>:
+  script: bin/worker
+<span class="nf">_store</span>:
+  type: etcd
+</code></pre></div>
 
     </div>
   </div>
@@ -129,33 +133,32 @@
     <div class="sixcol">
       <h2>Simple command-line client</h2>
       <p>Gilliam is controlled from a command-line tool simply called
-	<code>gilliam</code>. Its with this tool that you deploy
-	new releases of your service:
-<div class="highlight"><pre><code>$ gilliam deploy
-v12 released
+	<code>gilliam-cli</code>. For example, to build a new release
+        and migreate all running instances to that release, just run:
+	all instances to the new release
+<div class="highlight"><pre><code>$ gilliam-cli deploy
+...
+release 12
 </code></pre></div>
-	And scale a release up or down
-	<div class="highlight"><pre><code>$ gilliam scale v12 web=10</code></pre></div>
+        To create or destroy instances for a release, just run:
+	<div class="highlight"><pre><code>$ gilliam-cli scale 12 api=10</code></pre></div>
       </p>
     </div>
 
     <div class="sixcol last">
-      <h2>Easy to integrate</h2>
+      <h2>Built for RESTful APIs</h2>
 
-      <p>Most likely you already have a backend with existing
-	infrastructure and systems.  Gilliam is designed to be easy to
-	integate and extend in these scenarios.  Most <i>magic</i>
-	happens in shell scripts, allowing customization and
-	adaptation to fit your current situation.</p>
+      <p>Most components of Gilliam talk HTTP and expose RESTful APIs.
+	It is expected that your application and services will do the
+	same.</p>
 
-      <p>For example, the integration
-	with <a href="http://lxc.sf.net">LXC</a> is completely done in
-	three simple
-	scripts; <a href="https://github.com/gilliam/hypervisor/blob/master/scripts/provision">provision</a>,
-	<a href="https://github.com/gilliam/hypervisor/blob/master/scripts/start">start</a> and
-	<a href="https://github.com/gilliam/hypervisor/blob/master/scripts/cleanup">cleanup</a>.
-	This decoupling makes it possible to with ease switch
-	virtualizaiton techniques.</p>
+	<div class="highlight"><pre><code>$ gilliam-cli route api.myapp.com:/user/{user} api.user.service/{user}</code></pre></div>
+
+      <p>The route command exposes an internal service endpoint to the
+	internet.  Using variables in the route it is possible to
+	rewrite the URLs so that it fits your internal scheme.
+
+	</p>
     </div>
   </div>
 
@@ -164,8 +167,8 @@ v12 released
       <h2>Promotes best practices!</h2>
 
       <p>By having the services run in isolated, resource constrained
-	and read-only environments Gilliam promotes small stateless
-	services that lend themselves to horizontal scaling.</p>
+	environments Gilliam promotes small stateless services that
+	lend themselves to horizontal scaling.</p>
 
       <p>Each service instance will get a limited amount of CPU and
 	memory.  If more resources are needed to meet the demand you
