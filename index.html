@@ -116,14 +116,16 @@
 	living in the root of your code tree:</p>
 
 <div class="highlight">
-  <pre><code class="clj"><span class="nf">api</span>:
-  script: bin/api
-  ports:
-    - 80
-<span class="nf">_worker</span>:
-  script: bin/worker
-<span class="nf">_store</span>:
-  type: etcd
+  <pre><code class="clj">processes:
+  <span class="nf">api</span>:
+    script: bin/api
+    ports:
+      - 80
+  <span class="nf">_worker</span>:
+    script: bin/worker
+auxiliary:
+  <span class="nf">_store</span>:
+    type: etcd
 </code></pre></div>
 
     </div>
@@ -133,15 +135,15 @@
     <div class="sixcol">
       <h2>Simple command-line client</h2>
       <p>Gilliam is controlled from a command-line tool simply called
-	<code>gilliam-cli</code>. For example, to build a new release
+	<code>gilliam</code>. For example, to build a new release
         and migreate all running instances to that release, just run:
 	all instances to the new release
-<div class="highlight"><pre><code>$ gilliam-cli deploy
+<div class="highlight"><pre><code>$ gilliam deploy
 ...
 release 12
 </code></pre></div>
         To create or destroy instances for a release, just run:
-	<div class="highlight"><pre><code>$ gilliam-cli scale 12 api=10</code></pre></div>
+	<div class="highlight"><pre><code>$ gilliam scale -r12 api=10</code></pre></div>
       </p>
     </div>
 
@@ -152,7 +154,7 @@ release 12
 	It is expected that your application and services will do the
 	same.</p>
 
-	<div class="highlight"><pre><code>$ gilliam-cli route api.myapp.com:/user/{user} api.user.service/{user}</code></pre></div>
+	<div class="highlight"><pre><code>$ gilliam route api.myapp.com/user/{user} api.user.service/{user}</code></pre></div>
 
       <p>The route command exposes an internal service endpoint to the
 	internet.  Using variables in the route it is possible to
